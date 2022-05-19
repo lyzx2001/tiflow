@@ -254,7 +254,7 @@ function run() {
 
 	# test for start relay
 	echo "kill worker2"
-	kill_process worker2
+	ps aux | grep worker2 | awk '{print $2}' | xargs kill || true
 	check_port_offline $WORKER2_PORT 20
 
 	stop_relay_on_offline_worker
@@ -332,9 +332,9 @@ function run() {
 	stop_relay_success
 
 	# stop worker to test query-status works well when no worker
-	kill_process dmctl_basic/worker1
+	ps aux | grep dmctl_basic/worker1 | awk '{print $2}' | xargs kill || true
 	check_port_offline $WORKER1_PORT 20
-	kill_process dmctl_basic/worker2
+	ps aux | grep dmctl_basic/worker2 | awk '{print $2}' | xargs kill || true
 	check_port_offline $WORKER2_PORT 20
 
 	query_status_with_offline_worker

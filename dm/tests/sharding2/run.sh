@@ -54,9 +54,9 @@ function run() {
 	check_sync_diff $WORK_DIR $cur/conf/diff_config.toml
 
 	echo "kill dm-worker1"
-	kill_process dm-worker1
+	ps aux | grep dm-worker1 | awk '{print $2}' | xargs kill || true
 	echo "kill dm-worker2"
-	kill_process dm-worker2
+	ps aux | grep dm-worker2 | awk '{print $2}' | xargs kill || true
 
 	check_port_offline $WORKER1_PORT 20
 	check_port_offline $WORKER2_PORT 20
